@@ -1,0 +1,19 @@
+{
+  "name": "scriptserver-helpers",
+  "version": "0.0.1",
+  "description": "Random helpers module for scriptserver",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garrettjoecox/scriptserver-helpers.git"
+  },
+  "author": "Garrett Cox <garrettjcox@gmail.com> (http://garrettcox.io)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/garrettjoecox/scriptserver-helpers/issues"
+  },
+  "homepage": "https://github.com/garrettjoecox/scriptserver-helpers#readme"
+}
