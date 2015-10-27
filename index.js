@@ -1,7 +1,17 @@
 
 var ScriptServer = require('scriptserver');
 
-module.exports = function(self) {
+module.exports = function(server) {
+};
+
+ScriptServer.prototype.isOnline = function(player) {
+  var self = this;
+
+  return self.send(`testfor ${player}`, /Found\s([\S]+)/)
+    .then(d => {
+        if (!player) throw new Error('No Player Specified');
+        else return !!d;
+    });
 };
 
 ScriptServer.prototype.getCoords = function(player) {
