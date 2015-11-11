@@ -1,6 +1,6 @@
 {
   "name": "scriptserver-helpers",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Random helpers module for scriptserver",
   "main": "index.js",
   "scripts": {
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/garrettjoecox/scriptserver-helpers/issues"
   },
-  "homepage": "https://github.com/garrettjoecox/scriptserver-helpers#readme"
+  "homepage": "https://github.com/garrettjoecox/scriptserver-helpers#readme",
+  "dependencies": {
+    "scriptserver": "*"
+  }
 }

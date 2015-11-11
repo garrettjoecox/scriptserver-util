@@ -4,10 +4,19 @@ var ScriptServer = require('scriptserver');
 module.exports = function(server) {
 };
 
+ScriptServer.prototype.testForBlock = function(coords, type) {
+  var self = this;
+
+  return self.send(`testforblock ${coords.x} ${coords.y} ${coords.z} minecraft:${type}`, /(Successfully)/)
+    .then(d => {
+      return !!d;
+    });
+};
+
 ScriptServer.prototype.isOnline = function(player) {
   var self = this;
 
-  return self.send(`testfor ${player}`, /Found\s([\S]+)/)
+  return self.send(`testfor ${player}`, /Found\s([\w]+)/)
     .then(d => {
         if (!player) throw new Error('No Player Specified');
         else return !!d;
@@ -17,11 +26,11 @@ ScriptServer.prototype.isOnline = function(player) {
 ScriptServer.prototype.getCoords = function(player) {
     var self = this;
 
-    return self.send(`execute ${player} ~ ~ ~ /testforblock ~ ~ ~ minecraft:air 10`, /(-?[\d]+),(-?[\d]+),(-?[\d]+)/)
-        .then(d => { 
+    return self.send(`execute ${player} ~ ~ ~ /testforblock ~ ~ ~ minecraft:air 10`, /at\s([-\d]+),([-\d]+),([-\d]+)/)
+        .then(d => {
             return {
                 x: d[1],
-                y: d[2], 
+                y: d[2],
                 z: d[3]
             };
         });
