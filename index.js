@@ -8,9 +8,7 @@ ScriptServer.prototype.testForBlock = function(coords, type) {
   var self = this;
 
   return self.send(`testforblock ${coords.x} ${coords.y} ${coords.z} minecraft:${type}`, /(Successfully)/)
-    .then(d => {
-      return !!d;
-    });
+    .then(d => !!d);
 };
 
 ScriptServer.prototype.isOnline = function(player) {
