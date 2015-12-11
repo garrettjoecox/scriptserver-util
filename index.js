@@ -1,7 +1,23 @@
 
+var fs = require('fs');
+var path = require('path');
 var ScriptServer = require('scriptserver');
 
 module.exports = function(server) {
+};
+
+ScriptServer.prototype.isOp = function(player) {
+    var self = this;
+
+    console.log(player);
+
+    return new Promise((resolve, reject) => {
+        fs.readFile(path.join(process.cwd(), 'ops.json'), 'utf8', (err, data) => {
+            if (err) reject(err);
+            else resolve(data);
+        });
+    })
+    .then(ops => !!JSON.parse(ops).filter(op => op.name === player).length);
 };
 
 ScriptServer.prototype.testForBlock = function(coords, type) {
