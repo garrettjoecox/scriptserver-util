@@ -1,4 +1,4 @@
-scriptserver-helpers
+scriptserver-util
 ====================
 
 [![](http://i.imgur.com/zhptNme.png)](https://github.com/garrettjoecox/scriptserver)
@@ -8,24 +8,16 @@ FYI: This package is an addon for ScriptServer and requires ScriptServer to be s
 ## Installation
 While in root directory of your server run:
 ```
-npm install scriptserver-helpers
+npm install scriptserver-util
 ```
 And in your `server` file:
 ```javascript
-server.use('scriptserver-helpers');
+server.use(require('scriptserver-util'));
 ```
 
 ## Usage
 This module provides the following basic helper functions to help developers get started with modules.
 ```javascript
-// .testForBlock(coords, type)
-// Returns whether or not the block at the given coords matches the given type
-server.testForBlock({x: 0, y: 75, z: 0}, 'air')
-  .then(result => {
-    if (result) doSomething();
-    else doSomethingElse();
-  });
-
 // .isOnline(username)
 // Returns whether or not the player is online
 server.isOnline('ProxySaw')
@@ -40,13 +32,14 @@ server.doSomething(withSomething)
   .then(() => server.wait(1000))
   .then(() => doSomethingElse());
 
-// .getCoords(username)
-// Returns coordinates of given user if online
-server.getCoords('ProxySaw')
-  .then(coords => {
-    console.log(coords.x);
-    console.log(coords.y);
-    console.log(coords.z);
+// .getLocation(username)
+// Returns coordinates & dimension of given user if online
+server.getLocation('ProxySaw')
+  .then(loc => {
+    console.log(loc.x);
+    console.log(loc.y);
+    console.log(loc.z);
+    console.log(loc.dimension)
   });
 
 // .tellRaw(text, target, options)
