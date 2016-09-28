@@ -20,7 +20,7 @@ This module provides the following basic helper functions to help developers get
 ```javascript
 // .isOnline(username)
 // Returns whether or not the player is online
-server.isOnline('ProxySaw')
+server.util.isOnline('ProxySaw')
   .then(result => {
     if (result) doSomething();
     else doSomethingElse();
@@ -29,12 +29,12 @@ server.isOnline('ProxySaw')
 // .wait(ms)
 // Waits a given time (milliseconds) then continues to next promise in chain
 server.doSomething(withSomething)
-  .then(() => server.wait(1000))
+  .then(() => server.util.wait(1000))
   .then(() => doSomethingElse());
 
 // .getLocation(username)
 // Returns coordinates & dimension of given user if online
-server.getLocation('ProxySaw')
+server.util.getLocation('ProxySaw')
   .then(loc => {
     console.log(loc.x);
     console.log(loc.y);
@@ -44,5 +44,5 @@ server.getLocation('ProxySaw')
 
 // .tellRaw(text, target, options)
 // Uses the minecraft command tellRaw to tell [target] [text] with [options]
-server.tellRaw('Something went wrong!', '@a', {color: 'red'});
+server.util.tellRaw('Something went wrong!', '@a', {color: 'red'});
 ```
