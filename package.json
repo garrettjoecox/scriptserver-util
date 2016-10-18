@@ -1,6 +1,6 @@
 {
   "name": "scriptserver-util",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Random helpers module for scriptserver",
   "main": "index.js",
   "scripts": {},

@@ -23,7 +23,7 @@ module.exports = function() {
       if (!player) return Promise.reject(new Error('util.isOnline: Please provide player name'));
       if (typeof player !== 'string') return Promise.reject(new Error('util.isOnline: Player name needs to be a string'));
 
-      return server.send(`testfor ${player}`, /Found\s([\w]+)/, /The\sentity\sUUID/)
+      return server.send(`testfor ${player}`, /Found\s([\w]+)/, /cannot be found/)
         .then(() => true)
         .catch(() => false);
     },
@@ -61,6 +61,11 @@ module.exports = function() {
     },
 
     // General utilities
+
+    getOnlineAmount() {
+      return server.send('list', /]: There are ([\d]+)\/([\d]+)/)
+        .then(result => parseInt(result[1]));
+    },
 
     tellRaw(message, target = '@a', options = {}) {
       if (typeof target !== 'string') return Promise.reject(new Error('util.tellRaw: Specified target should be a string'));
