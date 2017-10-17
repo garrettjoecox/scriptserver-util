@@ -1,18 +1,24 @@
 {
   "name": "scriptserver-util",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Random helpers module for scriptserver",
   "main": "index.js",
-  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/garrettjoecox/scriptserver-util.git"
   },
   "author": "Garrett Cox <garrettjcox@gmail.com> (http://garrettcox.io)",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/garrettjoecox/scriptserver-util/issues"
   },
   "homepage": "https://github.com/garrettjoecox/scriptserver-util#readme",
-  "dependencies": {}
+  "peerDependencies": {
+    "scriptserver": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb-base": "^12.0.2",
+    "eslint-plugin-import": "^2.7.0"
+  }
 }
