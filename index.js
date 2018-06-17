@@ -13,6 +13,7 @@ module.exports = function () {
     isOp(player) {
       if (!player) return Promise.reject(new Error('util.isOp: Please provide player name'));
       if (typeof player !== 'string') return Promise.reject(new Error('util.isOp: Player name needs to be a string'));
+      if (server.config.flavor === 'glowstone') throw new Error('util.isOp: isOp is not yet supported for Glowstone, sorry :(');
 
       return readFile('ops.json')
         .then(ops => JSON.parse(ops))
@@ -23,8 +24,13 @@ module.exports = function () {
       if (!player) return Promise.reject(new Error('util.isOnline: Please provide player name'));
       if (typeof player !== 'string') return Promise.reject(new Error('util.isOnline: Player name needs to be a string'));
 
+      /* for snapshot
+      const result = await server.send(`data get entity ${player}`);
+      const isOnline = !!result.match(/\w+ has the following entity data/);
+      */
+
       return server.send(`testfor ${player}`)
-        .then(result => !!result.match(/^Found\s(\w+)$/));
+        .then(result => !!result.match(/^Found\s(\w+)/));
     },
 
     async getDimension(player) {
@@ -35,7 +41,12 @@ module.exports = function () {
       const overworldResult = await server.send(`testfor ${player} {Dimension:0}`);
       const netherResult = await server.send(`testfor ${player} {Dimension:-1}`);
       const endResult = await server.send(`testfor ${player} {Dimension:1}`);
-      const foundRegex = /^Found\s(\w+)$/;
+      const foundRegex = /^Found\s(\w+)/;
+
+      /* for snapshot
+      const result = await server.send(`data get entity ${player}`);
+      const dimension = result.match(/Dimension: ([-\d]+),/);
+      */
 
       if (overworldResult.match(foundRegex)) {
         return 'overworld';
@@ -52,9 +63,15 @@ module.exports = function () {
       if (!player) throw new Error('util.getLocation: Please provide player name');
       if (typeof player !== 'string') throw new Error('util.getLocation: Player name needs to be a string');
       if (!await this.isOnline(player)) throw new Error(`util.getLocation: ${player} is not online`);
+      if (server.config.flavor === 'glowstone') throw new Error('util.getLocation: Getting location is not yet supported for Glowstone, sorry :(');
 
-      const result = await server.send(`execute ${player} ~ ~ ~ /testforblock ~ ~ ~ minecraft:air 10`);
-      const coords = result.match(/at\s([-\d]+), ([-\d]+), ([-\d]+)/);
+      const result = await server.send(`tp ${player} ~ ~ ~`);
+      const coords = result.match(/^Teleported \w+ to ([-\d.]+), ([-\d.]+), ([-\d.]+)/);
+
+      /* for snapshot
+      const result = await server.send(`data get entity ${player}`);
+      const coords = result.match(/Pos: \[([-\d.]+)d, ([-\d.]+)d, ([-\d.]+)d\]/);
+      */
 
       return {
         dimension: await this.getDimension(player),
@@ -67,8 +84,10 @@ module.exports = function () {
     // General utilities
 
     getOnlineAmount() {
+      // Needs snapshot fix
+
       return server.send('list')
-        .then(result => result.match(/There are ([\d]+)\/([\d]+)/))
+        .then(result => result.match(/There are (\d+)\/(\d+) players online/))
         .then(result => parseInt(result[1], 10));
     },
 
