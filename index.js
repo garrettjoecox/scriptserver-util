@@ -29,8 +29,8 @@ module.exports = function () {
       const isOnline = !!result.match(/\w+ has the following entity data/);
       */
 
-      return server.send(`testfor ${player}`)
-        .then(result => !!result.match(/^Found\s(\w+)/));
+      return server.send(`list`)
+        .then(result => new RegExp(player,"g").test(result.split("online:")[1]);
     },
 
     async getDimension(player) {
@@ -87,8 +87,9 @@ module.exports = function () {
       // Needs snapshot fix
 
       return server.send('list')
-        .then(result => result.match(/There are (\d+)\/(\d+) players online/))
-        .then(result => parseInt(result[1], 10));
+        .then(result => {
+          return result.split("online:")[1].split(/\n|\ /g).slice(1).length; 
+        })
     },
 
     tellRaw(message, target = '@a', options = {}) {
