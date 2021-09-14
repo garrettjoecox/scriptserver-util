@@ -1,7 +1,7 @@
 {
   "name": "scriptserver-util",
-  "version": "1.2.0",
-  "description": "Random helpers module for scriptserver",
+  "version": "1.2.1",
+  "description": "Deprecated - Moved to @scriptserver/util",
   "main": "index.js",
   "repository": {
     "type": "git",

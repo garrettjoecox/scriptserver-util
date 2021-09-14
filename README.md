@@ -1,4 +1,4 @@
-scriptserver-util
+Deprecated - Moved to @scriptserver/util
 ====================
 
 [![](http://i.imgur.com/zhptNme.png)](https://github.com/garrettjoecox/scriptserver)
